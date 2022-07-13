@@ -23,16 +23,6 @@ class Tutor
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $email;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $password;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $name;
 
     /**
@@ -50,6 +40,12 @@ class Tutor
      */
     private $groups;
 
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, inversedBy="tutor", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function __construct()
     {
         $this->groups = new ArrayCollection();
@@ -58,30 +54,6 @@ class Tutor
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
     }
 
     public function getName(): ?string
@@ -146,6 +118,18 @@ class Tutor
                 $group->setTutorId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUserId(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUserId(User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
