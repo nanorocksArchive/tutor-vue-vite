@@ -46,9 +46,15 @@ class Group
      */
     private $students;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Lecture::class, mappedBy="group_id", orphanRemoval=true)
+     */
+    private $lectures;
+
     public function __construct()
     {
         $this->students = new ArrayCollection();
+        $this->lectures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -126,6 +132,36 @@ class Group
     {
         if ($this->students->removeElement($student)) {
             $student->removeGroupId($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Lecture>
+     */
+    public function getLectures(): Collection
+    {
+        return $this->lectures;
+    }
+
+    public function addLecture(Lecture $lecture): self
+    {
+        if (!$this->lectures->contains($lecture)) {
+            $this->lectures[] = $lecture;
+            $lecture->setGroupId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLecture(Lecture $lecture): self
+    {
+        if ($this->lectures->removeElement($lecture)) {
+            // set the owning side to null (unless already changed)
+            if ($lecture->getGroupId() === $this) {
+                $lecture->setGroupId(null);
+            }
         }
 
         return $this;

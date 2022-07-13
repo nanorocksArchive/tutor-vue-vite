@@ -40,6 +40,12 @@ class Lecture
      */
     private $is_active;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Group::class, inversedBy="lectures")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $group;
+
     public function __construct()
     {
         $this->lectureMaterials = new ArrayCollection();
@@ -131,6 +137,18 @@ class Lecture
     public function setIsActive(bool $is_active): self
     {
         $this->is_active = $is_active;
+
+        return $this;
+    }
+
+    public function getGroupId(): ?Group
+    {
+        return $this->group;
+    }
+
+    public function setGroupId(?Group $group): self
+    {
+        $this->group = $group;
 
         return $this;
     }
