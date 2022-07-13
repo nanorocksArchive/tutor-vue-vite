@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Helpers\Hash;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -22,6 +23,22 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
+    }
+
+    public function create(array $params, bool $flush = false): User
+    {
+        $user = new User();
+        $user->setEmail($params['email']);
+        $user->setPassword(Hash::make($user, $params['password']));
+        $user->setRoles($params['roles']);
+
+        $this->getEntityManager()->persist($user);
+
+        // if ($flush) {
+            $this->getEntityManager()->flush();
+        // }
+
+        return $user;
     }
 
     public function add(User $entity, bool $flush = false): void

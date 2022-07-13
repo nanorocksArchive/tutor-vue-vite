@@ -69,7 +69,7 @@ class Student
         return $this;
     }
 
-    public function isIsBlocked(): ?bool
+    public function isBlocked(): ?bool
     {
         return $this->is_blocked;
     }

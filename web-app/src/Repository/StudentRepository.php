@@ -21,6 +21,23 @@ class StudentRepository extends ServiceEntityRepository
         parent::__construct($registry, Student::class);
     }
 
+    public function create(array $params, bool $flush = false): Student
+    {
+        $student = new Student();
+        $student->setName($params['name']);
+        $student->setIsBlocked($params['is_blocked']);
+        $student->setUser($params['user']);
+        $student->addGroupId($params['group']);
+
+        $this->getEntityManager()->persist($student);
+
+        // if ($flush) {
+            $this->getEntityManager()->flush();
+        // }
+
+        return $student;
+    }
+
     public function add(Student $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

@@ -129,7 +129,7 @@ class Lecture
         return $this;
     }
 
-    public function isIsActive(): ?bool
+    public function isActive(): ?bool
     {
         return $this->is_active;
     }
@@ -141,12 +141,12 @@ class Lecture
         return $this;
     }
 
-    public function getGroupId(): ?Group
+    public function getGroup(): ?Group
     {
         return $this->group;
     }
 
-    public function setGroupId(?Group $group): self
+    public function setGroup(?Group $group): self
     {
         $this->group = $group;
 

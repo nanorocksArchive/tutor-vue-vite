@@ -21,6 +21,23 @@ class TutorRepository extends ServiceEntityRepository
         parent::__construct($registry, Tutor::class);
     }
 
+    public function create(array $params, bool $flush = false): Tutor
+    {
+        $tutor = new Tutor();
+        $tutor->setName($params['name']);
+        $tutor->setUserId($params['user']);
+        $tutor->setCreatedAt($params['created_at']);
+        $tutor->setUpdatedAt($params['updated_at']);
+
+        $this->getEntityManager()->persist($tutor);
+
+        // if ($flush) {
+            $this->getEntityManager()->flush();
+        // }
+
+        return $tutor;
+    }
+
     public function add(Tutor $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

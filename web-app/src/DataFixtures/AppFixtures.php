@@ -3,48 +3,62 @@
 namespace App\DataFixtures;
 
 use App\Entity\Group;
+use App\Entity\Student;
 use App\Entity\Tutor;
 use App\Entity\User;
-use App\Helper\Hash;
+use App\Helpers\Enums\UserRolesEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Faker\Factory;
 
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-       // User tutor
-       $user = new User();
-       $user->setEmail('tutorandrej@gmail.com');
-       $user->setPassword(Hash::make($user, 'secret'));
-       $manager->persist($user);
-       $manager->flush();
+        $faker = Factory::create();
 
-       // Tutor 
-       $tutor = new Tutor();
-       $tutor->setName('Tutor Andrej');
-       $tutor->setUserId($user);
+        // User tutor
+        $user = $manager->getRepository(User::class)->create([
+            'email' => 'tutorandrej@gmail.com',
+            'password' => 'secret',
+            'roles' => [UserRolesEnum::ROLE_TUTOR]
+        ]);
 
-       $dt = new \DateTimeImmutable();
+        // Tutor 
+        $dt = new \DateTimeImmutable();
 
-       $tutor->setCreatedAt($dt);
-       $tutor->setUpdatedAt($dt);
+        $tutor = $manager->getRepository(Tutor::class)->create([
+            'name' => $faker->name,
+            'user' => $user,
+            'created_at' => $dt,
+            'updated_at' => $dt
+        ]);
 
-       $manager->persist($tutor);
-       $manager->flush();
+        // Group
+        $dt = new \DateTimeImmutable();
 
-       // Group
-       $group = new Group();
-       $group->setName('Web-design');
+        $group = $manager->getRepository(Group::class)->create([
+            'name' => 'Web-design',
+            'created_at' => $dt,
+            'updated_at' => $dt,
+            'tutor' => $tutor
+        ]);
 
-       $dt = new \DateTimeImmutable();
 
-       $group->setCreatedAt($dt);
-       $group->setUpdatedAt($dt);
+        for ($i = 0; $i < 5; $i++) {
 
-       $group->setTutor($tutor);
+            $user = $manager->getRepository(User::class)->create([
+                'email' => $faker->email,
+                'password' => 'secret',
+                'roles' => [UserRolesEnum::ROLE_STUDENT]
+            ]);
 
-       $manager->persist($group);
-       $manager->flush();
+            $manager->getRepository(Student::class)->create([
+                'name' => $faker->name,
+                'is_blocked' => false,
+                'user' => $user,
+                'group' => $group
+            ]);
+        }
     }
 }
