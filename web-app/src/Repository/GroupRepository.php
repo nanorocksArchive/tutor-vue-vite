@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Group;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @extends ServiceEntityRepository<Group>
@@ -56,6 +57,17 @@ class GroupRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function delete(int $id, bool $flush = false): Group
+    {
+        $group = $this->find($id);
+
+        if($group === null) throw new NotFoundHttpException('Record not exist.');
+
+        $this->remove($group);
+
+        return $group;
     }
 
 //    /**
