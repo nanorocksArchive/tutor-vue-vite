@@ -2,8 +2,8 @@
   <div class="container pt-5 pb-5">
     <JumbotroneOrganism />
     <div class="row">
-      <h5 class="">
-        Note: I you need to re-upolad the homework, new homework will be
+      <h5 class="font-weight-200">
+        Note: If you need to re-upolad the homework, new homework will be
         replaced with the new one !!!
       </h5>
       <div class="col-12" v-for="item in [1, 2, 3, 4]" :key="item">
@@ -21,3 +21,8 @@ export default {
   components: { CardHorizontal, JumbotroneOrganism, ExercisesOrganism },
 };
 </script>
+<style scoped>
+.font-weight-200 {
+  font-weight: 200;
+}
+</style>
