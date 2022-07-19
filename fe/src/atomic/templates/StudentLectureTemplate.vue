@@ -6,7 +6,6 @@
         Note: I you need to re-upolad the homework, new homework will be
         replaced with the new one !!!
       </h5>
-
       <div class="col-12" v-for="item in [1, 2, 3, 4]" :key="item">
         <ExercisesOrganism />
       </div>
