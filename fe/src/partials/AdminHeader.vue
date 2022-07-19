@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
+      <router-link class="navbar-brand" to="/admin">
         Tutor<span class="text-primary">App</span>
-      </a>
+      </router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -28,6 +28,27 @@
             </router-link>
           </li>
         </ul>
+        <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <router-link
+              to="#"
+              class="nav-link disabled text-dark "
+              aria-current="page"
+            >
+              Hi, Andrej
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link
+              to="/logout"
+              class="nav-link"
+              active-class="active"
+              aria-current="page"
+            >
+              Logout
+            </router-link>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
@@ -41,6 +62,7 @@ export default {
         { routeName: "Groups", to: "/admin/groups" },
         { routeName: "Students", to: "/admin/students" },
         { routeName: "Lectures", to: "/admin/lectures" },
+        { routeName: "Exercises", to: "/admin/exercises" },
       ],
     };
   },

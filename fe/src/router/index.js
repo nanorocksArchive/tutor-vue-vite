@@ -3,6 +3,8 @@ import LoginPage from "./../atomic/pages/LoginPage.vue";
 import GroupsPage from "./../atomic/pages/GroupsPage.vue";
 import StudentsPage from "./../atomic/pages/StudentsPage.vue";
 import LecturesPages from "./../atomic/pages/LecturesPages.vue";
+import DashboardPage from "./../atomic/pages/DashboardPage.vue";
+import StudentLecture from "./../atomic/pages/StudentLecture.vue";
 
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -10,6 +12,14 @@ const routes = [
   {
     path: "/",
     component: LoginPage,
+  },
+  {
+    path: "/students/lectures",
+    component: DashboardPage,
+  },
+  {
+    path: "/students/lectures/:id",
+    component: StudentLecture,
   },
   {
     path: "/admin",
