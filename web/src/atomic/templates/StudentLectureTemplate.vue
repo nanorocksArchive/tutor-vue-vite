@@ -3,8 +3,7 @@
     <JumbotroneOrganism />
     <div class="row">
       <h5 class="font-weight-200">
-        Note: If you need to re-upolad the homework, new homework will be
-        replaced with the new one !!!
+        Note: If you need to re-upolad the homework, set a new date on the zip file and place a message
       </h5>
       <div class="col-12" v-for="item in [1, 2, 3, 4]" :key="item">
         <ExercisesOrganism />

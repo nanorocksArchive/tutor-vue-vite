@@ -12,28 +12,29 @@
             >
           </li>
         </ul>
+         <p class="pt-4">
+          References:
+          <ul>
+            <li>Ref1</li>
+          </ul>
+        </p>
       </div>
       <div class="col-6">
         <form>
           <div class="alert alert-success small" role="alert">
-            A simple success alert—check it out!
-          </div>
-          <div class="text-last">
+            <h5>
+              Send you homework on: 
+            </h5>
+            <strong>
+              andrejnankov@gmail.com
+            </strong>
+            <br />
+            until 22.03.2022 00:00
             <div class="mb-3">
-              <label for="formFile" class="form-label"
-                >Upload homework as .zip file |
-                <span class="text-danger font-weight-bolder"
-                  >until 22.03.2022 00:00</span
-                ></label
-              >
-              <input class="form-control" type="file" id="formFile" />
               <small class="text-muted"
                 >The zip file to be in format like
                 name_lastname_exercise_number_date.zip</small
               >
-            </div>
-            <div class="text-end">
-              <button class="btn btn-dark btn-sm">Upload</button>
             </div>
           </div>
         </form>
